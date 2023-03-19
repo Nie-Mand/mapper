@@ -10,6 +10,8 @@ const data = [
   },
 ];
 
+const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
 function App() {
   // IF JS: const position = [36.3759586, 10.5428839]
   const position: any = [36.3759586, 10.5428839];
@@ -30,10 +32,7 @@ function App() {
   return (
     <div>
       <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <ReactLeafletGoogleLayer apiKey={googleMapsApiKey} type={"satellite"} />
 
         {data.map((v) => (
           <Marker
