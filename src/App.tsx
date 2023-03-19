@@ -1,7 +1,28 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
+const data = [
+  {
+    id: 1,
+    metadata: "hey",
+    position: [36.3759586, 10.5428839],
+  },
+];
+
 function App() {
-  const position = [51.505, -0.09]
+  const position = [36.3759586, 10.5428839];
+
+  function handleMarkerClick(id, metadata) {
+    return (e) => {
+      console.log(e.latlng);
+      const { lat, lng } = e.latlng;
+      console.log({
+        id,
+        metadata,
+        lat,
+        lng,
+      });
+    };
+  }
 
   return (
     <div>
@@ -10,11 +31,15 @@ function App() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {data.map((v) => (
+          <Marker
+            key={v.id}
+            position={position}
+            eventHandlers={{
+              click: handleMarkerClick(v.id, v.metadata),
+            }}
+          />
+        ))}
       </MapContainer>
     </div>
   );
