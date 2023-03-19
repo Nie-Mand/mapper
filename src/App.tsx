@@ -1,4 +1,5 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import ReactLeafletGoogleLayer from "react-leaflet-google-layer";
 
 const data = [
   {
@@ -9,7 +10,8 @@ const data = [
 ];
 
 function App() {
-  const position = [36.3759586, 10.5428839];
+  // IF JS: const position = [36.3759586, 10.5428839]
+  const position: any = [36.3759586, 10.5428839];
 
   function handleMarkerClick(id, metadata) {
     return (e) => {
@@ -27,10 +29,11 @@ function App() {
   return (
     <div>
       <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        <ReactLeafletGoogleLayer
+          apiKey="AIzaSyDi4EE5gzhlkVgdkTefE-irT7AivylpaGo"
+          type={"satellite"}
         />
+
         {data.map((v) => (
           <Marker
             key={v.id}
